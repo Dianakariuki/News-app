@@ -45,3 +45,5 @@ class Headlines:
         self.url = url
         self.image = image
         self.title = title
+        
+        
