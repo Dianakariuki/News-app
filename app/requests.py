@@ -15,11 +15,11 @@ def configure_request(app):
     source_url= app.config['NEWS_API_SOURCE_URL']
     cat_url=app.config['CAT_API_URL']
 
-def configure_request(app):
-    global api_key, source_url, cat_url
-    api_key = app.config['NEWS_API_KEY']
-    source_url= app.config['NEWS_API_SOURCE_URL']
-    cat_url=app.config['CAT_API_URL']
+# def configure_request(app):
+#     global api_key, source_url, cat_url
+#     api_key = app.config['NEWS_API_KEY']
+#     source_url= app.config['NEWS_API_SOURCE_URL']
+#     cat_url=app.config['CAT_API_URL']
 
 
 def get_source():
@@ -35,10 +35,11 @@ def get_source():
         source_results = None
 
         if get_sources_response['sources']:
+            
             source_results_list = get_sources_response['sources']
             source_results = process_results(source_results_list)
 
-    return source_results
+            return source_results
 
 
 def process_results(source_list):
@@ -61,9 +62,11 @@ def process_results(source_list):
 
     return source_results
 def article_source(id):
+    
     article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
     print(article_source_url)
     with urllib.request.urlopen(article_source_url) as url:
+        
         article_source_data = url.read()
         article_source_response = json.loads(article_source_data)
 
@@ -74,9 +77,10 @@ def article_source(id):
             article_source_results = process_articles_results(article_source_list)
 
 
-    return article_source_results
+            return article_source_results
 
 def process_articles_results(news):
+    
     '''
     function that processes the json files of articles from the api key
     '''
@@ -90,10 +94,11 @@ def process_articles_results(news):
         title = article.get ('title')
 
         if url:
+            
             article_objects = Article(author,description,time,image,url,title)
             article_source_results.append(article_objects)
 
-    return article_source_results
+            return article_source_results
 
 def get_category(cat_name):
     '''
@@ -108,10 +113,11 @@ def get_category(cat_name):
         get_cartegory_results = None
 
         if get_cartegory_response['articles']:
+            
             get_cartegory_list = get_cartegory_response['articles']
             get_cartegory_results = process_articles_results(get_cartegory_list)
 
-    return get_cartegory_results
+            return get_cartegory_results
 
 def get_headlines():
     
@@ -129,7 +135,9 @@ def get_headlines():
 
         if get_headlines_response['articles']:
             
+            
+            
             get_headlines_list = get_headlines_response['articles']
             get_headlines_results = process_articles_results(get_headlines_list)
 
-    return get_headlines_results
+            return get_headlines_results
