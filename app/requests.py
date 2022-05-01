@@ -28,7 +28,7 @@ def get_source():
     Function that gets the json response to url request
     '''
     get_source_url = source_url.format(api_key)
-    print(get_source_url)
+    # print(get_source_url)
     with urllib.request.urlopen(get_source_url) as url:
         get_sources_data = url.read()
         get_sources_response = json.loads(get_sources_data)
@@ -53,17 +53,19 @@ def process_results(source_list):
     '''
     source_results = []
     for source_item in source_list:
+        
         id = source_item.get('id')
         name = source_item.get('name')
         description = source_item.get('description')
         url = source_item.get('url')
         if id:
+            
+            
             source_object = Source(id,name,description,url)
             source_results.append(source_object)
 
             return source_results
 def article_source(id):
-
     article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
     print(article_source_url)
     with urllib.request.urlopen(article_source_url) as url:
@@ -95,6 +97,7 @@ def process_articles_results(news):
         title = article.get ('title')
 
         if url:
+            
             
             article_objects = Article(author,description,time,image,url,title)
             article_source_results.append(article_objects)

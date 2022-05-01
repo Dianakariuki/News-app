@@ -11,6 +11,7 @@ class Article:
         self.title = title
 
 class Category:
+    
     '''
     Class that instantiates objects of the news categories objects of the news sources
     '''
