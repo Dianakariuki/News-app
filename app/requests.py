@@ -2,6 +2,7 @@ import urllib.request,json
 from .models import Article, Category, Source , Headlines
 
 
+
 # Getting api key
 api_key = None
 # Getting source url
@@ -12,8 +13,8 @@ cat_url= None
 def configure_request(app):
     global api_key, source_url, cat_url
     api_key = app.config['NEWS_API_KEY']
-    source_url= app.config['NEWS_API_SOURCE_URL']
-    cat_url=app.config['CAT_API_URL']
+    source_url = app.config['NEWS_API_SOURCE_URL']
+    cat_url = app.config['CAT_API_URL']
 
 # def configure_request(app):
 #     global api_key, source_url, cat_url
@@ -26,8 +27,8 @@ def get_source():
     '''
     Function that gets the json response to url request
     '''
-    get_source_url= source_url.format(api_key)
-    # print(get_source_url)
+    get_source_url = source_url.format(api_key)
+    print(get_source_url)
     with urllib.request.urlopen(get_source_url) as url:
         get_sources_data = url.read()
         get_sources_response = json.loads(get_sources_data)
@@ -60,9 +61,9 @@ def process_results(source_list):
             source_object = Source(id,name,description,url)
             source_results.append(source_object)
 
-    return source_results
+            return source_results
 def article_source(id):
-    
+
     article_source_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey={}'.format(id,api_key)
     print(article_source_url)
     with urllib.request.urlopen(article_source_url) as url:
